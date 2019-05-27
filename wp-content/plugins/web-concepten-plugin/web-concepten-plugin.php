@@ -21,8 +21,22 @@
 
 
   function webc_greet_user($title) {
+    $current_hour = intval(date_i18n("H"));
+    $greeting = "";
+
+    if ($current_hour > 0 && $current_hour < 6) {
+      $greeting = "Goedenacht";
+    } else if ($current_hour > 6 && $current_hour < 12) {
+      $greeting = "Goedemorgen";
+    } else if ($current_hour > 12 && $current_hour < 18) {
+      $greeting = "Goedemiddag";
+    } else {
+      $greeting = "Goedenavond";
+    }
+
+
     if (is_front_page()) {
-      return "Goedemiddag,<br />". $title;
+      return $greeting .",<br />". $title;
     }
 
     return $title;
