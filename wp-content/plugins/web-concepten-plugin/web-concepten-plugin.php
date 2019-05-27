@@ -11,29 +11,37 @@
     exit;
   }
 
-  add_filter("the_title", "webc_greet_user");
+  add_action("wp_loaded", "webc_set_cookie");
 
+  add_filter("the_title", "webc_greet_user");
   // fires before a nav menu item is created
   add_filter("pre_wp_nav_menu", "webc_remove_title_filter_nav_menu", 10, 2);
-
   // fires after a nav menu item is created
   add_filter( 'wp_nav_menu_items', "webc_add_title_filter_non_menu", 10, 2);
 
+  function webc_set_cookie() {
+    if (!isset($_COOKIE["user-visit-cookie"])) {
+      setcookie('user-visit-cookie', '1', time() + 3600, COOKIEPATH, COOKIE_DOMAIN);
+    }
+  }
 
   function webc_greet_user($title) {
     $current_hour = intval(date_i18n("H"));
     $greeting = "";
 
-    if ($current_hour > 0 && $current_hour < 6) {
-      $greeting = "Goedenacht";
-    } else if ($current_hour > 6 && $current_hour < 12) {
-      $greeting = "Goedemorgen";
-    } else if ($current_hour > 12 && $current_hour < 18) {
-      $greeting = "Goedemiddag";
+    if (!isset($_COOKIE["user-visit-cookie"])) {
+      if ($current_hour > 0 && $current_hour < 6) {
+        $greeting = "Goedenacht";
+      } else if ($current_hour > 6 && $current_hour < 12) {
+        $greeting = "Goedemorgen";
+      } else if ($current_hour > 12 && $current_hour < 18) {
+        $greeting = "Goedemiddag";
+      } else {
+        $greeting = "Goedenavond";
+      }
     } else {
-      $greeting = "Goedenavond";
+      $greeting = "Welkom terug";
     }
-
 
     if (is_front_page()) {
       return $greeting .",<br />". $title;
