@@ -72,8 +72,8 @@
     public function update($new_instance, $old_instance) {
       $instance = array();
 
-      $instance['title'] = (!empty( $new_instance['title'])) ? strip_tags($new_instance['title']) : '';
-      $instance['state'] = (!empty( $new_instance['state'])) ? $new_instance['state'] : '';
+      $instance['title'] = (!empty($new_instance['title'])) ? strip_tags($new_instance['title']) : '';
+      $instance['state'] = (!empty($new_instance['state'])) ? $new_instance['state'] : '';
 
       return $instance;
     }
