@@ -144,10 +144,12 @@
    * Create a log when a user has visited the site.
    */
   function webc_log_user() {
-    global $wpdb;
-    $table_name = $wpdb->prefix . 'webc_log';
+    if (!is_admin()) {
+      global $wpdb;
+      $table_name = $wpdb->prefix . 'webc_log';
 
-    // insert a log in the database
-    $sql = "INSERT INTO $table_name (IP) VALUES ('$_SERVER[REMOTE_ADDR]')";
-    $results = $wpdb->get_results($sql);
+      // insert a log in the database
+      $sql = "INSERT INTO $table_name (IP) VALUES ('$_SERVER[REMOTE_ADDR]')";
+      $results = $wpdb->get_results($sql);
+    }
   }
