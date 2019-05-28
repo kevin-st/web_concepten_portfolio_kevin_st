@@ -148,6 +148,6 @@
     $table_name = $wpdb->prefix . 'webc_log';
 
     // insert a log in the database
-    $sql = "INSERT INTO $table_name("IP") VALUES $_SERVER['REMOTE_ADDR']";
+    $sql = "INSERT INTO $table_name (IP) VALUES ('$_SERVER[REMOTE_ADDR]')";
     $results = $wpdb->get_results($sql);
   }
