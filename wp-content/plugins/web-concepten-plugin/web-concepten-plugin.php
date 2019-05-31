@@ -48,11 +48,11 @@
 
     // if the user hasn't visited the site yet
     if (!isset($_COOKIE["user-visit-cookie"])) {
-      if ($current_hour > 0 && $current_hour < 6) {
+      if ($current_hour >= 0 && $current_hour < 6) {
         $greeting = "Goedenacht";
-      } else if ($current_hour > 6 && $current_hour < 12) {
+      } else if ($current_hour >= 6 && $current_hour < 12) {
         $greeting = "Goedemorgen";
-      } else if ($current_hour > 12 && $current_hour < 18) {
+      } else if ($current_hour >= 12 && $current_hour < 18) {
         $greeting = "Goedemiddag";
       } else {
         $greeting = "Goedenavond";
